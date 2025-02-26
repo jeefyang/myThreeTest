@@ -12,10 +12,18 @@ document.body.appendChild(renderer.domElement);
 
 // 方块
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
+const material = new THREE.MeshLambertMaterial({ color: 0xaaffaa });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
-camera.position.z = 5;
+camera.position.z = 20;
+
+// 点光源
+const pointLight = new THREE.PointLight(0x00ff00, 100);
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 1);
+pointLight.position.set(5, 5, 5);
+scene.add(pointLight);
+scene.add(pointLightHelper);
+
 
 // 坐标
 const axesHelper = new THREE.AxesHelper(30);
