@@ -1,4 +1,4 @@
-// import "./createScene"
+// import "./login_in/createScene"
 import "./login_in/directionalLightAndAmbientLight";
 
-// import "./drawLine";
+// import "./login_in/drawLine";
