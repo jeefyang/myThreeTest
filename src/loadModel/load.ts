@@ -19,9 +19,9 @@ document.body.appendChild(renderer.domElement);
 
 const ambient = new THREE.AmbientLight(0xffff00, 0.5);
 scene.add(ambient);
-const light = new THREE.DirectionalLight(0x00ff00, 1000);
-light.position.set(100, 0, 0);
-scene.add(light);
+// const light = new THREE.DirectionalLight(0x00ff00, 1000);
+// light.position.set(100, 0, 0);
+// scene.add(light);
 
 
 
@@ -30,10 +30,26 @@ const loader = new GLTFLoader();
 loader.load("/dragon.glb", (gltf) => {
     console.log("对象结构", gltf);
     console.log("场景属性", gltf.scene);
-    // 模型缩放
-    // 模型缩放
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load('/1.jpg');
+    texture.flipY = false;
+
+    gltf.scene.traverse(
+        // @ts-ignore
+        (child: THREE.Mesh) => {
+            if (child.type != "Mesh") {
+                return;
+            }
+            // 看去非龙的元素,不然很难看
+            if (child.name != "Player_BOX") {
+                child.visible = false;
+            }
+            else {
+                (child.material as THREE.MeshStandardMaterial).map = texture;
+            }
+        });
     scene.add(gltf.scene);
-    light.add(gltf.scene);
+    // light.add(gltf.scene);
     // ambient.add(gltf.scene);
 });
 
