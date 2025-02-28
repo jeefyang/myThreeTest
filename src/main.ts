@@ -18,4 +18,7 @@
 // import "./uv/texture";
 // import "./uv/repeat";
 // import "./uv/map";
-import "./uv/animation";
+// import "./uv/animation";
+
+// 加载外部三维模型(gltf) 
+import "./loadModel/load"
