@@ -3,8 +3,8 @@ import { OrbitControls } from "three/addons";
 
 // 场景摄像头
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 9000);
+camera.position.z = 500;
 
 
 // 渲染器
@@ -12,15 +12,21 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// 方块
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+//  坐标icon
+const geometry = new THREE.PlaneGeometry(60, 60);
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load("/gps.png");
+const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
+const mesh = new THREE.Mesh(geometry, material);
+mesh.position.y = 30;
+// mesh.rotateX(-Math.PI / 2);
+scene.add(mesh);
 
-// 坐标
-const axesHelper = new THREE.AxesHelper(30);
-scene.add(axesHelper);
+
+// 地面辅助观察
+const gridHelper = new THREE.GridHelper(3000, 25, 0x004444, 0x004444);
+scene.add(gridHelper);
+
 
 // 操控
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -39,8 +45,8 @@ window.addEventListener("resize", () => {
 // 动画帧
 function animate() {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    // mesh.rotation.x += 0.01;
+    // mesh.rotation.y += 0.01;
     renderer.render(scene, camera);
 }
 

@@ -16,7 +16,11 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
 const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+const cloneCube = cube.clone();
+cloneCube.position.x = 3;
+// 即使克隆,所引用的对象是不变的,还是在共用着,所以颜色会一起变化
+cube.material.color.set(0x00ff00);
+scene.add(cube, cloneCube);
 
 // 坐标
 const axesHelper = new THREE.AxesHelper(30);

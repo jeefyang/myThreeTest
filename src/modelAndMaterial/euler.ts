@@ -16,6 +16,10 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ color: 0xaaaaaa });
 const cube = new THREE.Mesh(geometry, material);
+
+// 创建一个欧拉对象,表示绕着xyz轴分别旋转45度,0度,90度
+const Euler = new THREE.Euler(Math.PI / 4, 0, Math.PI / 2);
+cube.rotation.set(Euler.x, Euler.y, Euler.z);
 scene.add(cube);
 
 // 坐标
@@ -39,8 +43,8 @@ window.addEventListener("resize", () => {
 // 动画帧
 function animate() {
     requestAnimationFrame(animate);
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    // cube.rotation.x += 0.01;
+    // cube.rotation.y += 0.01;
     renderer.render(scene, camera);
 }
 
